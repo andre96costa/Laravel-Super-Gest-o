@@ -26,3 +26,8 @@ Route::prefix('/app')->group(function() {
     Route::get('/fornecedores', function () {return 'fornecedores';})->name('app.fornecedores');
     Route::get('/produtos', function () {return 'produtos';})->name('app.produtos');
 });
+
+Route::fallback(function () {
+    $link = '<a href="'.route('site.index').'">Retornar</a>';
+    return "A rota acessada não existe {$link}";
+});
