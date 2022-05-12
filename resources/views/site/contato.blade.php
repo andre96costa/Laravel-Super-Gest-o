@@ -9,7 +9,7 @@
 
         <div class="informacao-pagina">
             <div class="contato-principal">
-                @component('site.layouts.components.form-contato', ['classe' => 'borda-preta'])
+                @component('site.layouts.components.form-contato', ['classe' => 'borda-preta', 'motivo_contatos' => $motivo_contatos])
                     <p>Nossa equipe analisará a sua mensagem e retornaremos o mais brevemente possivel</p>
                     <p>Nosso tempo médio de resposta é 48 horas.</p>
                 @endcomponent
