@@ -1,8 +1,5 @@
 {{ $slot }}
 
-@if ($errors->any())
-    {{ $errors }}
-@endif
 <form action="{{ route('site.contato') }}" method="POST">
     @method('POST')
     @csrf
