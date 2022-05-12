@@ -31,6 +31,14 @@ class ContatoController extends Controller
             "email" => 'required|email',
             "motivo_contatos_id" => 'required',
             "mensagem" => 'required|max:2000',
+        ],
+        [
+            'nome.min' => 'O campo nome precisa ter no minimo 3 caracteres.',
+            'nome.max' => 'O campo nome precisa ter no máxomo 30 caracteres.',
+            'email.email' => 'O campo email não está no formato correto.',
+            'motivo_contatos_id.required' => 'O campo motivo precisa ser preenchido.',
+            'mensagem.max' => 'A mensagem excedeu a quantidade permitida de caracteres.',
+            'required' => 'O campo :attribute precisa ser preenchido'
         ]);
        
         SiteContato::create([
@@ -40,7 +48,7 @@ class ContatoController extends Controller
             'motivo_contatos_id' => $request->input('motivo_contatos_id'),
             'mensagem' => $request->input('mensagem'),
         ]);
-        
+
         return redirect()->route('site.index');
     }
 }
