@@ -29,18 +29,18 @@ class ContatoController extends Controller
             "nome" => 'required|min:3|max:40',
             "telefone" => 'required',
             "email" => 'required|email',
-            "motivo_contato" => 'required',
+            "motivo_contatos_id" => 'required',
             "mensagem" => 'required|max:2000',
         ]);
-        dd($request->all());
+       
         SiteContato::create([
             'nome' => $request->input('nome'),
             'telefone' => $request->input('telefone'),
             'email' => $request->input('email'),
-            'motivo_contato' => $request->input('motivo_contato'),
+            'motivo_contatos_id' => $request->input('motivo_contatos_id'),
             'mensagem' => $request->input('mensagem'),
         ]);
-
         
+        return redirect()->route('site.index');
     }
 }
