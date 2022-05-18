@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Fornecedor;
 use App\Produto;
 use App\Unidade;
 use Illuminate\Http\Request;
@@ -15,7 +16,7 @@ class ProdutoController extends Controller
      */
     public function index(Request $request)
     {
-        $produtos = Produto::paginate(10);
+        $produtos = Produto::with(['produtoDetalhe', 'fornecedor'])->paginate(10);
         $req = $request->all();
 
         return view('app.produto.index', compact('produtos', 'req'));
@@ -29,7 +30,8 @@ class ProdutoController extends Controller
     public function create()
     {
         $unidades = Unidade::all();
-        return view('app.produto.create', compact('unidades'));
+        $fornecedores = Fornecedor::all();
+        return view('app.produto.create', compact('unidades', 'fornecedores'));
     }
 
     /**
@@ -41,10 +43,11 @@ class ProdutoController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'fornecedor_id' => 'exists:fornecedores,id',
             'nome' => 'required|min:3|max:40',
             'descricao' => 'required|min:3|max:2000',
             'peso' => 'required|integer',
-            'unidade_id' => 'exists:unidades,id',
+            'unidade_id' => 'exists:unidades,id'
         ],
         [
             'required' => 'O campo :attribute deve ser preenchido',
@@ -53,7 +56,8 @@ class ProdutoController extends Controller
             'descricao.min' => 'O campo descricao deve ter no minimo 3 caracteres',
             'descricao.max' => 'O campo descricao deve ter no maximo 2000 caracteres',
             'peso.integer' => 'O campo peso deve ser um número inteiro',
-            'unidade_id.exists' => 'A unidade de medida informada não existe',
+            'unidade_id.exists' => 'Selecione uma unidade de medida valida',
+            'fornecedor_id.exists' => 'Selecione um fornecedor valido',
         ]);
 
         Produto::create($request->all());
@@ -80,7 +84,8 @@ class ProdutoController extends Controller
     public function edit(Produto $produto)
     {
         $unidades = Unidade::all();
-        return view('app.produto.edit', compact('produto', 'unidades'));
+        $fornecedores = Fornecedor::all();
+        return view('app.produto.edit', compact('produto', 'unidades', 'fornecedores'));
     }
 
     /**
@@ -93,6 +98,7 @@ class ProdutoController extends Controller
     public function update(Request $request, Produto $produto)
     {
         $produto->update([
+            'fornecedor_id' => $request->fornecedor_id,
             'nome' => $request->nome,
             'descricao' => $request->descricao,
             'peso' => $request->peso,
