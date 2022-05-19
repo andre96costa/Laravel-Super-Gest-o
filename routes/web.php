@@ -26,9 +26,34 @@ Route::post('/login', 'LoginController@autenticar')->name('site.login');
 Route::middleware(['autenticacao'])->prefix('/app')->group(function() {
     Route::get('/home', 'HomeController@index')->name('app.home');
     Route::get('/sair', 'LoginController@sair')->name('app.sair');
-    Route::get('/cliente', 'ClienteController@index')->name('app.cliente');
+
+
+
+
     Route::get('/fornecedor', 'FornecedorController@index')->name('app.fornecedor');
-    Route::get('/produto', 'ProdutoController@index')->name('app.produto');
+    Route::post('/fornecedor/listar', 'FornecedorController@listar')->name('app.fornecedor.listar');
+    Route::get('/fornecedor/listar', 'FornecedorController@listar')->name('app.fornecedor.listar');
+    Route::get('/fornecedor/adicionar', 'FornecedorController@adicionar')->name('app.fornecedor.adicionar');
+    Route::post('/fornecedor/adicionar', 'FornecedorController@adicionar')->name('app.fornecedor.adicionar');
+    Route::get('/fornecedor/editar/{id}', 'FornecedorController@editar')->name('app.fornecedor.editar');
+    Route::get('/fornecedor/excluir/{id}', 'FornecedorController@excluir')->name('app.fornecedor.excluir');
+
+
+
+    //produto routes
+    Route::resource('/produto', 'ProdutoController');
+
+    //ProdutoDetalhe routes
+    Route::resource('/produto-detalhe', 'ProdutoDetalheController');
+
+    //Cliente routes
+    Route::resource('/cliente', 'ClienteController');
+    //Pedido routes
+    Route::resource('/pedido', 'PedidoController');
+    //PedidoProduto
+    Route::get('/pedido-produto/create/{pedido}', 'PedidoProdutoController@create')->name('pedido-produto.create');
+    Route::post('/pedido-produto/store/{pedido}', 'PedidoProdutoController@store')->name('pedido-produto.store');
+    Route::delete('/pedido-produto/destroy/{pedidoProduto}', 'PedidoProdutoController@destroy')->name('pedido-produto.destroy');
 });
 
 // Route::get('/teste/{p1}/{p2}', 'TesteController@teste')->name('teste');
