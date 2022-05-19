@@ -26,7 +26,6 @@ Route::post('/login', 'LoginController@autenticar')->name('site.login');
 Route::middleware(['autenticacao'])->prefix('/app')->group(function() {
     Route::get('/home', 'HomeController@index')->name('app.home');
     Route::get('/sair', 'LoginController@sair')->name('app.sair');
-    Route::get('/cliente', 'ClienteController@index')->name('app.cliente');
 
 
 
@@ -46,6 +45,15 @@ Route::middleware(['autenticacao'])->prefix('/app')->group(function() {
 
     //ProdutoDetalhe routes
     Route::resource('/produto-detalhe', 'ProdutoDetalheController');
+
+    //Cliente routes
+    Route::resource('/cliente', 'ClienteController');
+    //Pedido routes
+    Route::resource('/pedido', 'PedidoController');
+    //PedidoProduto
+    Route::get('/pedido-produto/create/{pedido}', 'PedidoProdutoController@create')->name('pedido-produto.create');
+    Route::post('/pedido-produto/store/{pedido}', 'PedidoProdutoController@store')->name('pedido-produto.store');
+    Route::delete('/pedido-produto/destroy/{pedidoProduto}', 'PedidoProdutoController@destroy')->name('pedido-produto.destroy');
 });
 
 // Route::get('/teste/{p1}/{p2}', 'TesteController@teste')->name('teste');
