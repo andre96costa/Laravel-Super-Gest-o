@@ -24,4 +24,4 @@ O projeto super gestão foi desenvolvido como o propósitos de estudo da framewo
 - CRUD (CREATE - READ - UPDATE - DELETE)
   
 ### Certificado de conclusão do curso 
-> [curso ainda em andamento](https://www.udemy.com/certificate/UC-b63250ab-388b-4bb5-9894-7e4dd0710ed3/)
+> [Certificado de conclusão](https://www.udemy.com/certificate/UC-b63250ab-388b-4bb5-9894-7e4dd0710ed3/)
